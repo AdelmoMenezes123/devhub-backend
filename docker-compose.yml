@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: devhub-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: adelmo
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: devhub
+    ports:
+      - "5435:5432" # Mudando para porta 5433 no host
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
