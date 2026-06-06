@@ -1,3 +1,4 @@
+import { hash } from "bcryptjs";
 import { inject, injectable } from "tsyringe";
 
 import { AppError } from "../../../shared/errors/AppError";
@@ -17,9 +18,11 @@ export class CreateUserService {
     const userExists = await this.usersRepository.findByEmail(email);
 
     if (userExists) {
-      throw new AppError("User already exists", 409);
+      throw new AppError("Usuário já existe", 409);
     }
 
-    return this.usersRepository.create({ name, email, password });
+    const passwordHash = await hash(password, 8);
+
+    return this.usersRepository.create({ name, email, password: passwordHash });
   }
 }
