@@ -1,5 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
+import { AppError } from "../../../shared/errors/AppError";
 import { IUsersRepository } from "../repositories/IUsersRepository";
 
 interface IRequest {
@@ -15,7 +16,7 @@ export class CreateUserService {
     const userExists = await this.usersRepository.findByEmail(email);
 
     if (userExists) {
-      throw new Error("User already exists");
+      throw new AppError("User already exists", 409);
     }
 
     return this.usersRepository.create({ name, email });
