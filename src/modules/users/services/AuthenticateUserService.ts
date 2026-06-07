@@ -4,12 +4,8 @@ import { inject, injectable } from "tsyringe";
 
 import { auth } from "../../../shared/config/auth";
 import { AppError } from "../../../shared/errors/AppError";
+import { IAuthenticateUserDTO } from "../dtos/IAuthenticateUserDTO";
 import { IUsersRepository } from "../repositories/IUsersRepository";
-
-interface IRequest {
-  email: string;
-  password: string;
-}
 
 interface ITokenPayload {
   sub: string;
@@ -19,7 +15,7 @@ interface ITokenPayload {
 export class AuthenticateUserService {
   constructor(@inject("UsersRepository") private usersRepository: IUsersRepository) {}
 
-  async execute({ email, password }: IRequest) {
+  async execute({ email, password }: IAuthenticateUserDTO) {
     const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {
