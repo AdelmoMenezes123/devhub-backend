@@ -2,7 +2,7 @@ import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 import { inject, injectable } from "tsyringe";
 
-import { auth } from "../../../shared/config/auth";
+import auth from "../../../shared/config/auth";
 import { AppError } from "../../../shared/errors/AppError";
 import { IAuthenticateUserDTO } from "../dtos/IAuthenticateUserDTO";
 import { IUsersRepository } from "../repositories/IUsersRepository";
